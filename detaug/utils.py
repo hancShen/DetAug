@@ -11,12 +11,12 @@ def decorate(f):
             return None, []
         if len(ds_bboxes) < 1:
             return None, []
-        mask = (ds_bboxes[:, 2] <= ds_bboxes[:, 0]) * (ds_bboxes[:, 3] <= ds_bboxes[:, 1])
-        num_err = mask.sum()
-        if (num_err >= 0) and (num_err < len(ds_bboxes)):
-            return ds_image, ds_bboxes[~mask]
-        else:
+        mask = (ds_bboxes[:, 2] > ds_bboxes[:, 0]) * (ds_bboxes[:, 3] > ds_bboxes[:, 1])
+        mask *= (ds_bboxes[:, 2] < w) * (ds_bboxes[:, 3] < h)
+        if mask.sum() == 0:
             return None, []
+        else:
+            return ds_image, ds_bboxes[mask]
 
     return fun
 
