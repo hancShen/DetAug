@@ -1,22 +1,28 @@
-<h1 align=center>Image Augmentation</h1>
+<h1 align=center>Data Augmentation for Object Detection</h1>
 
----
+<div align="center">hcshen@gmail.com</div>
 
-
-Shen
-
-&emsp; Data Augmentation(DA) is a essential step in deep learning model training. This file implement adequate methods for DA. Including Object Detection(OD) and Semantic Segmentation(SS).
-
-&emsp; This repository propose an effective tool package for OD tasks, we named as **detaug**.
+&emsp; Data Augmentation(DA) is a essential step in deep learning model training. Objcet Detection(OD), one of most important task in computer vision, is highly demand on annotation dataset.This repository propose an effective tool package for OD tasks, we named as `detaug`. 
+ 
 
 <center>
 <img src="./images/image_000041_0.jpg" width=304 height=400/>
 <p>image 0: the image without augmentation.</p>
 </center>
 
-## 1. Augmentation for Object Detection
+## 1. Usage
 
-&emsp; Objcet Detection(OD), one of most important task in computer vision, is highly demand on annotation dataset. All of OD augmentation tool functions were packaged into **detaug**, you can use it by `pip install detaug-xxx-py3-none-any.whl` in your envionment, and the `*.whl` was stored in folder path `./dist/`.
+&emsp; All of OD augmentation tool functions were packaged into **detaug**, you can use it by<br>
+```bash
+python setup.py bdist_wheel
+
+pip install ./dist/detaug-xxx-py3-none-any.whl
+```
+in your envionment, and the `*.whl` was stored in folder path `./dist/`.
+
+After `detaug` was installed, you could use it by `import detaug`.
+
+## 2. Methods of `detaug`
 
 |SN|name|function|
 |:---:|:---:|:---:|
@@ -34,8 +40,7 @@ Shen
 |12|perspective_transform | PerspectiveTransform|
 |13|hist_equalize | HistEqualize|
 
-#### 1.1 rotation
-- [x]  
+#### 2.1 rotation
 
 ```python
 input = cv2.imread(imgpath)
@@ -47,8 +52,7 @@ result, tbboxes = Rotation(input, bboxes, angle=0, scale=1.0)
 ```
 ---
 
-#### 1.2. flip #
-- [x]  
+#### 2.2. flip #
 
 ```python
 input = cv2.imread(imgpath)
@@ -66,12 +70,11 @@ result, tbboxes = Flip(image, bboxes, direction='horizon')
 <p>image 1: rotation &thinsp; &thinsp;
 image 2. flip</p>
 </center>
-#### 1.3. random crop #
-- [x]  
+#### 2.3. random crop #
 
 ```python
 input = cv2.imread(imgpath)
-result, tbboxes = RandomCrop(input, bboxes, crop_size)
+result, tbboxes = detaug.RandomCrop(input, bboxes, crop_size)
 
 
 # crop_size:
@@ -82,12 +85,11 @@ result, tbboxes = RandomCrop(input, bboxes, crop_size)
 ```
 ---
 
-#### 1.4. perspective transformation
-- [x]  
+#### 2.4. perspective transformation
 
 ```python
 
-result, tbboxes = PerspectiveCenterTransform(image, bboxes, direction, scale=0.8)
+result, tbboxes = detaug.PerspectiveCenterTransform(image, bboxes, direction, scale=0.8)
 # direction: including 4 directions: top, bottom, left, right;
 # scale: a float value in [0.0, 1.0], the perspetective transform edge scale ratio.
 ```
@@ -101,47 +103,45 @@ result, tbboxes = PerspectiveCenterTransform(image, bboxes, direction, scale=0.8
 image 4. perspective transformation</p>
 </center>
 
-#### 1.5. add noise
-- [x]  
+#### 2.5. add noise
 
 ```python
-result, tbboxes = NoiseAdd(image, bboxes, noise='salt', salt_ratio=0.3)
+result, tbboxes = detaug.NoiseAdd(image, bboxes, noise='salt', salt_ratio=0.3)
 # noise: 'salt' or 'gauss';
 # salt_ratio: a float value in [0.0, 1.0], the ratio of salt noise in whole image;
 
 #scale: a float value over 0.0, the scale of gauss noise diameter.
-result, tbboxes = NoiseAdd(image, bboxes, noise='gauss', scale=1.0)
+result, tbboxes = detaug.NoiseAdd(image, bboxes, noise='gauss', scale=1.0)
 
 ```
 ---
 
-#### 1.6. image filter
-- [x]  
+#### 2.6. image filter
 
 ```python
 input = cv2.imread(imgpath)
 
 # 1. gauss blur
 # kisze: a 2dim tuple, the shape of gauss blur kernel
-result, tbboxes = FilterTransform(image, bboxes, filter='gauss', ksize=(5, 5))
+result, tbboxes = detaug.FilterTransform(image, bboxes, filter='gauss', ksize=(5, 5))
 
 # 2. median filter
 # ksize: an int, the diameter of median filter kernel
-result, tbboxes = FilterTransform(image, bboxes, filter='median', ksize=5)
+result, tbboxes = detaug.FilterTransform(image, bboxes, filter='median', ksize=5)
 
 # 3. avg filter
 # ksize: a 2dim tuple, the shape of average filter kernel
-result, tbboxes = FilterTransform(image, bboxes, filter='average', ksize=(5, 5))
+result, tbboxes = detaug.FilterTransform(image, bboxes, filter='average', ksize=(5, 5))
 
 # 4. bilateral
 # d: an int, the diameter of filter kernel
 # sigmaColor: an int, the incidence range of neighbor color, variance of color distribution
 # sigmaSpace: an int, the incidence range of spatial neighbor coordinates, variance of spatial distribution
-result, tbboxes = FilterTransform(image, bboxes, filter='bilateral', d=9, sigmaColor=50, sigmaSpace=50)
+result, tbboxes = detaug.FilterTransform(image, bboxes, filter='bilateral', d=9, sigmaColor=50, sigmaSpace=50)
 
 # 5. kernel filter, customized filter
 # kernel: a numpy array, the customized filter kernel
-result, tbboxes = FilterTransform(image, bboxes, filter='customized', kernel=np.array([[1. 1], [1. 1]]))
+result, tbboxes = detaug.FilterTransform(image, bboxes, filter='customized', kernel=np.array([[1. 1], [1. 1]]))
 
 ```
 ---
@@ -156,27 +156,25 @@ image 6. image filter</p>
 </center>
 
 
-#### 1.7. mixup
+#### 2.7. mixup
 
-#### 1.8. contrast #
-- [x]  
+#### 2.8. contrast # 
 
 Adjust image contrast randomly.
 
 ```python
 input = cv2.imread(imgpath)
-result, tbboxes = RandomContrast(image, bboxes, low=0.5, high=1.5)
+result, tbboxes = detaug.RandomContrast(image, bboxes, low=0.5, high=1.5)
 # low, high: rescale image contrast with a random value, and the vaule is random selected in [low, high]
 
 ```
 ---
 
-#### 1.9. gray scale #
-- [x]  
+#### 2.9. gray scale # 
 
 ```python
 input = cv2.imread(imgpath)
-result, tbboxes = GrayScale(image, bboxes)
+result, tbboxes = detaug.GrayScale(image, bboxes)
 # convert BGR cv2 image to gray image and copy 3 equal channels
 ```
 ---
@@ -191,19 +189,17 @@ image 8. image gray scale</p>
 </center>
 
 
-#### 1.10. color channels shuffle #
-- [x]  
+#### 2.10. color channels shuffle # 
 
 ```python
 input = cv2.imread(imgpath)
-result, tbboxes = RandomSwap(image, bboxes)
+result, tbboxes = detaug.RandomSwap(image, bboxes)
 
 # random shuffling the order of RGB channels
 ```
 ---
 
-#### 1.11. image pyramid #
-- [ ]  
+#### 2.11. image pyramid # 
 
 ```python
 results, tbboxes = [], []
@@ -218,22 +214,20 @@ for result, tbboxes in ImagePyramid(image, bboxes, num_levels=4):
 ---
 
 
-#### 1.12. hue #
-- [ ]  
+#### 2.12. hue # 
 
 ```python
-result, tbboxes = RandomHue(image, bboxes, delta=18.0)
+result, tbboxes = detaug.RandomHue(image, bboxes, delta=18.0)
 # delta: a float over 0.0, the fluctuation range of random hue transforming.
 
 ```
 ---
 
 
-#### 1.13. saturation #
-- [x]  
+#### 2.13. saturation # 
 
 ```python
-result, tbboxes = RandomSaturation(image, bboxes, low=0.5, high=1.5)
+result, tbboxes = detaug.RandomSaturation(image, bboxes, low=0.5, high=1.5)
 # low: a float over 0.0, the lower boundray of added saturation random distribution;
 # high: a float over low, the upper boundray of added saturation random distribution;
 ```
@@ -251,11 +245,10 @@ image 10. saturation transformation</p>
 
 
 
-#### 1.14. images fusion #
-- [x]  
+#### 2.14. images fusion # 
 
 ```python
-dimg, dboxes = ImagesFusion(fg_image, bg_image, bboxes, dscale=0.3)
+dimg, dboxes = detaug.ImagesFusion(fg_image, bg_image, bboxes, dscale=0.3)
 
 # merge background image with an annotated foreground image.
 # fg_image: the foreground image loaded from cv2.imread;
