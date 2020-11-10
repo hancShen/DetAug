@@ -44,7 +44,7 @@ After `detaug` was installed, you could use it by `import detaug`.
 
 ```python
 input = cv2.imread(imgpath)
-result, tbboxes = Rotation(input, bboxes, angle=0, scale=1.0)
+result, tbboxes = detaug.Rotation(input, bboxes, angle=0, scale=1.0)
 
 # format of bboxes is [[x1, y1, x2, y2, label], ...]
 # angle: value in [0, 360], default 0 means without rotation
@@ -56,7 +56,7 @@ result, tbboxes = Rotation(input, bboxes, angle=0, scale=1.0)
 
 ```python
 input = cv2.imread(imgpath)
-result, tbboxes = Flip(image, bboxes, direction='horizon')
+result, tbboxes = detaug.Flip(image, bboxes, direction='horizon')
 
 # direction includes: horizon, vertical, horizon_vertical
 # Flip is equal to rotation with angle 90, 180, 270 degree.
