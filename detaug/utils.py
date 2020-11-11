@@ -11,9 +11,9 @@ def decorate(f):
             return None, []
         if len(ds_bboxes) < 1:
             return None, []
-        mask = (ds_bboxes[:, 2] > ds_bboxes[:, 0]) * (ds_bboxes[:, 3] > ds_bboxes[:, 1])
         ds_bboxes[:, 2] = np.clip(ds_bboxes[:, 2], 0, w - 1).astype(np.int)
         ds_bboxes[:, 3] = np.clip(ds_bboxes[:, 3], 0, h - 1).astype(np.int)
+        mask = (ds_bboxes[:, 2] > ds_bboxes[:, 0]) * (ds_bboxes[:, 3] > ds_bboxes[:, 1])
         # mask *= (ds_bboxes[:, 2] < w) * (ds_bboxes[:, 3] < h)
         if mask.sum() == 0:
             return None, []
