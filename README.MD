@@ -6,7 +6,7 @@
  
 
 <center>
-<img src="./images/image_000041_0.jpg" width=304 height=400/>
+<img src="./images/aug_00.jpg" width=304 height=400/>
 <p>image 0: the image without augmentation.</p>
 </center>
 
@@ -63,8 +63,8 @@ result, tbboxes = detaug.Flip(image, bboxes, direction='horizon')
 ```
 ---
 <center>
-<img src="./images/image_000041_1.jpg" width=304 height=400>
-<img src="./images/image_000041_2.jpg" width=304 height=400>
+<img src="./images/aug_02.jpg" width=304 height=400>
+<img src="./images/aug_01.jpg" width=304 height=400>
 </center>
 <center>
 <p>image 1: rotation &thinsp; &thinsp;
@@ -95,8 +95,8 @@ result, tbboxes = detaug.PerspectiveCenterTransform(image, bboxes, direction, sc
 ```
 ---
 <center>
-<img src="./images/image_000041_3.jpg" width=304 height=400>
-<img src="./images/image_000041_12.jpg" width=304 height=400>
+<img src="./images/aug_08.jpg" width=304 height=400>
+<img src="./images/aug_04.jpg" width=304 height=400>
 </center>
 <center>
 <p>image 3: random crop &thinsp; &thinsp;
@@ -147,8 +147,8 @@ result, tbboxes = detaug.FilterTransform(image, bboxes, filter='customized', ker
 ---
 
 <center>
-<img src="./images/image_000041_10.jpg" width=304 height=400>
-<img src="./images/image_000041_9.jpg" width=304 height=400>
+<img src="./images/aug_06.jpg" width=304 height=400>
+<img src="./images/aug_09.jpg" width=304 height=400>
 </center>
 <center>
 <p>image 5: add noise &thinsp; &thinsp;
@@ -180,8 +180,8 @@ result, tbboxes = detaug.GrayScale(image, bboxes)
 ---
 
 <center>
-<img src="./images/image_000041_6.jpg" width=304 height=400>
-<img src="./images/image_000041_8.jpg" width=304 height=400>
+<img src="./images/aug_03.jpg" width=304 height=400>
+<img src="./images/aug_05.jpg" width=304 height=400>
 </center>
 <center>
 <p>image 7: contrast transform &thinsp; &thinsp;
@@ -235,8 +235,8 @@ result, tbboxes = detaug.RandomSaturation(image, bboxes, low=0.5, high=1.5)
 
 
 <center>
-<img src="./images/image_000041_5.jpg" width=304 height=400>
-<img src="./images/image_000041_7.jpg" width=304 height=400>
+<img src="./images/aug_07.jpg" width=304 height=400>
+<img src="./images/aug_10.jpg" width=304 height=400>
 </center>
 <center>
 <p>image 9: image RGB channels shuffling &thinsp; &thinsp;
@@ -258,8 +258,8 @@ dimg, dboxes = detaug.ImagesFusion(fg_image, bg_image, bboxes, dscale=0.3)
 ```
 
 <center>
-<img src="./images/image_000041_11.jpg" width=304 height=400>
-<img src="./images/image_000041_13.jpg" width=304 height=400>
+<img src="./images/aug_11.jpg" width=304 height=400>
+<img src="./images/aug_12.jpg" width=304 height=400>
 </center>
 <center>
 <p>image 11: images fusion &thinsp; &thinsp;
